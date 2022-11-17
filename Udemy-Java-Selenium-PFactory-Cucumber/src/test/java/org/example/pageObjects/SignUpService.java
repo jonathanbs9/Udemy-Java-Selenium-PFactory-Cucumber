@@ -1,23 +1,31 @@
 package org.example.pageObjects;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.example.conf.DriverConfig;
+import org.example.enums.Gender;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class SignUpService {
-    private WebDriver driver;
+    @Autowired
     private SignUpPage signUpPage;
+    @Autowired
+    private WebDriver driver;
 
-    public SignUpService(WebDriver driver){
-        this.driver=driver;
-        signUpPage = new SignUpPage(driver);
-    }
+    @Autowired
+    WebDriverWait wait;
 
     public void navigate(String url){
-        driver.get(url);
-        signUpPage = new SignUpPage(driver);
+        this.driver.get(url);
     }
 
     public void writeFirstName(String firstName){
+        this.wait.until(ExpectedConditions.visibilityOf(this.signUpPage.getFirstNameInput()));
         signUpPage.getFirstNameInput().sendKeys(firstName);
     }
 
@@ -33,12 +41,20 @@ public class SignUpService {
         signUpPage.getPhoneInput().sendKeys(phoneNumber);
     }
 
-    public void selectGenderMale(){
+    private void selectGenderMale(){
         signUpPage.getGenderMaleRadio().click();
     }
 
-    public void selectGenderFemale(){
+    private void selectGenderFemale(){
         signUpPage.getGenderFemaleRadio().click();
+    }
+
+    public void selectGender(Gender gender){
+        if (gender == Gender.male){
+            selectGenderMale();
+        } else {
+            selectGenderFemale();
+        }
     }
 
     public void clickSubmit(){

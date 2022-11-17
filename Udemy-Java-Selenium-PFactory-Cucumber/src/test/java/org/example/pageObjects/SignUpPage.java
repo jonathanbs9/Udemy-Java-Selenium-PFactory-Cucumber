@@ -6,16 +6,19 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 @Getter
-public class SignUpPage {
-
+public class SignUpPage extends PageBase{
+    @Autowired
     public SignUpPage(WebDriver driver){
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     //private By firstNameInput = By.xpath("//input[@type='text'][@placeholder='First Name']");
-    @FindBy(xpath = "//input[@type='text'][@placeholder='First Name']")
+    @FindBy(xpath = "//input[@type='text'][@ng-model='FirstName']")
     private WebElement firstNameInput;
 
     //private By lastNameInput = By.xpath("//input[@type='text'][@placeholder='Last Name']");

@@ -1,1 +1,9 @@
+org\example\conf\DriverConfig.class
+org\example\util\DriverFactory.class
+org\example\pageObjects\SignUpPage.class
 org\example\stepDefinitions\SignUpStepDefinitions.class
+org\example\AppTest.class
+org\example\HookDriver.class
+org\example\enums\Browser.class
+runner\TestRunner.class
+org\example\pageObjects\SignUpService.class
